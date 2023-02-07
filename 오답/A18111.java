@@ -44,10 +44,10 @@ public class A18111 {
 					if(arr[x][y] > i) {
 						//땅을 판다
 						add += 2*(arr[x][y]-i);
-						block += 1;
-					}else if(arr[x][y] <i){
+						block += (arr[x][y]-i);
+					}else{
 						//땅을 쌓는다.
-						block -=1;
+						block -= (i-arr[x][y]);
 						add += (i-arr[x][y]);
 					}
 				}
@@ -59,7 +59,7 @@ public class A18111 {
 				break;
 			}
 			
-			if(time>add) {
+			if(time>=add) {
 				time = add;
 				high = i;
 			}
