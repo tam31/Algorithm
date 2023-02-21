@@ -1,4 +1,4 @@
-package 오답2;
+package 오답;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +24,7 @@ public class A2573 {
 		
 		arr = new int[n][m];
 		vis = new int[n][m];
+		
 		for(int i=0; i<n; i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j=0; j<m; j++) {
@@ -35,18 +36,15 @@ public class A2573 {
 		while(true) {
 			year +=1;
 			later();
-			back();
+			zero();
 			int num = check();
-			if(num==0) {
+			if(num == 0) {
 				System.out.println(0);
 				return;
-			}else if(num==1) {
-				continue;
-			}else {
-				break;
 			}
+			else if(num==1) continue;
+			else break;
 		}
-		
 		System.out.println(year);
 	}
 	private static int check() {
@@ -55,44 +53,42 @@ public class A2573 {
 		int cnt1 = 0;
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<m; j++) {
-				if(arr[i][j] !=0) {
+				if(arr[i][j] != 0) {
 					x = i;
 					y = j;
-					cnt1 +=1;
+					cnt1 += 1;
 				}
 			}
 		}
-		
 		if(cnt1 == 0) return 0;
-		
 		int cnt2 = 0;
 		Queue<int[]> que = new LinkedList<>();
 		que.add(new int[] {x,y});
 		vis[x][y] = 1;
-		
 		while(!que.isEmpty()) {
-			int data[] = que.poll();
-			cnt2 +=1;
-			for(int k=0; k<4; k++) {
-				int nx = dx[k]+data[0];
-				int ny = dy[k]+data[1];
-				if(nx>=0&&nx<n&&ny>=0&&ny<m&&vis[nx][ny] == 0 && arr[nx][ny] !=0) {
-					vis[nx][ny] = 1;
-					que.add(new int[] {nx,ny});
-					
-				}
+			int[] data = que.poll();
+			cnt2+=1;
+			for(int i=0; i<4; i++) {
+				int nx = data[0] + dx[i];
+				int ny = data[1] + dy[i];
+				
+				if(nx<0||nx>=n||ny<0||ny>=m||vis[nx][ny] == 1||arr[nx][ny]<=0) continue;
+				vis[nx][ny] =1;
+				que.add(new int[] {nx,ny});
 			}
 		}
-		
 		if(cnt1==cnt2) return 1;
 		return 2;
+		
 	}
-	
-	private static void back() {
+	//방문횟수 초기화
+	private static void zero() {
 		for(int i=0; i<n; i++) {
 			Arrays.fill(vis[i], 0);
 		}
 	}
+
+	//1년후
 	private static void later() {
 		int[][] zero = new int[n][m];
 		for(int i=0; i<n; i++) {
@@ -100,12 +96,10 @@ public class A2573 {
 				if(arr[i][j] == 0) continue;
 				
 				for(int k=0; k<4; k++) {
-					int nx = dx[k]+i;
-					int ny = dy[k]+j;
+					int nx = i+dx[k];
+					int ny = j+dy[k];
 					
-					if(nx<0||nx>=n||ny<0||ny>=m) continue;
-					
-					if(arr[nx][ny] == 0) zero[i][j] += 1;
+					if(nx>=0&&nx<n&&ny>=0&&ny<m&&arr[nx][ny] == 0) zero[i][j] +=1;
 				}
 			}
 		}
@@ -115,6 +109,7 @@ public class A2573 {
 				arr[i][j] = Math.max(0, arr[i][j]-zero[i][j]);
 			}
 		}
+		
 	}
 
 }
