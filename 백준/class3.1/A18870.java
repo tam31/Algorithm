@@ -1,4 +1,4 @@
-package ¿¬½À;
+package class3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,29 +8,33 @@ public class A18870 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
+		StringBuilder sb = new StringBuilder();
 		
-		int[] arr = new int[n];
-		int[] arr2 = new int[n];
+		Map<Integer, Integer> map = new HashMap<>();
+		int[] list1 = new int[n];
+		int[] list2 = new int[n];
 		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		
 		for(int i=0; i<n; i++) {
 			int a = Integer.parseInt(st.nextToken());
-			arr[i] = a;
-			arr2[i] = a;
+			list1[i] = a;
+			list2[i] = a;
 		}
 		
-		Arrays.sort(arr);
+		Arrays.sort(list1);
 		int num = 0;
-		Map<Integer, Integer> map = new HashMap<>();
 		for(int i=0; i<n; i++) {
-			if(!map.containsKey(arr[i])) {
-				map.put(arr[i], num);
-				num+=1;
+			int a = list1[i];
+			if(!map.containsKey(a)) {
+				map.put(a, num);
+				num +=1;
 			}
 		}
 		
-		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<n; i++) {
-			sb.append(map.get(arr2[i])+" ");
+			int a = list2[i];
+			sb.append(map.get(a)+" ");
 		}
 		System.out.println(sb);
 	}
