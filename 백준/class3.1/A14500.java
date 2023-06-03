@@ -1,4 +1,4 @@
-package class3;
+package ¿¬½À;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,9 +8,9 @@ public class A14500 {
 	static int m;
 	static int[][] map;
 	static boolean[][] vis;
-	static int[] dx = {-1,1,0,0};
-	static int[] dy = {0,0,-1,1};
-	static int max = Integer.MIN_VALUE;
+	static int max = 0;
+	static int[] dx = {-1,0,1,0};
+	static int[] dy = {0,-1,0,1};
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -29,38 +29,40 @@ public class A14500 {
 		
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<m; j++) {
-				vis[i][j] = true;
-				dfs(i,j,map[i][j],1);
-				vis[i][j] = false;
+				if(!vis[i][j]) {
+					vis[i][j] = true;
+					func(i,j,map[i][j],1);
+					vis[i][j] = false;
+				}
 			}
 		}
-		
 		System.out.println(max);
 	}
 	
-	private static void dfs(int x, int y, int sum, int cnt) {
+	private static void func(int x, int y, int sum, int cnt) {
 		if(cnt == 4) {
-			max = Math.max(sum, max);
+			max = Math.max(max, sum);
 			return;
 		}
 		
 		for(int i=0; i<4; i++) {
-			int nx = dx[i]+x;
-			int ny = dy[i]+y;
-			
+			int nx = x+dx[i];
+			int ny = y+dy[i];
 			if(nx>=0&&nx<n && ny>=0&&ny<m && !vis[nx][ny]) {
 				
-				if(cnt==2) {
-					vis[nx][ny]=true;
-					dfs(x,y,sum+map[nx][ny], cnt+1);
-					vis[nx][ny]=false;
+				if(cnt == 2) {
+					vis[nx][ny] = true;
+					func(x,y,sum+map[nx][ny],cnt+1);
+					vis[nx][ny] = false;
 				}
 				
-				vis[nx][ny]=true;
-				dfs(nx,ny,sum+map[nx][ny], cnt+1);
-				vis[nx][ny]=false;
+				vis[nx][ny] = true;
+				func(nx,ny, sum+map[nx][ny], cnt+1);
+				vis[nx][ny] = false;
+				
 			}
 		}
+		
+		
 	}
-
 }
