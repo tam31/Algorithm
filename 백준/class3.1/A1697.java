@@ -1,4 +1,4 @@
-package class3;
+package ¿¬½À;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,41 +12,27 @@ public class A1697 {
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());
 		
-		int[] vis = new int[100001];
-		Arrays.fill(vis, -1);
-		
-		Queue<int[]> que = new LinkedList<>();
-		que.add(new int[] {n,0});
-		vis[n] = 0;
-		
-		int max = Math.max(n, m);
-		
-		int ans = -1;
-		while(!que.isEmpty()) {
-			int[] data = que.poll();
-			
-			if(data[0] == m) {
-				ans = data[1];
-				break;
+		int[] arr = new int[100001];
+		arr[n] = 1;
+		Queue<Integer> que = new LinkedList<>();
+		que.add(n);
+		while(!que.isEmpty() && arr[m] == 0) {
+			int a = que.poll();
+			if(a-1>=0 && arr[a-1]==0) {
+				arr[a-1] = arr[a]+1;
+				que.add(a-1);
 			}
-			if(data[0]+1<=100000 && vis[data[0]+1]==-1) {
-				que.add(new int[] {data[0]+1, data[1]+1});
-				vis[data[0]+1] = vis[data[0]]+1;
+			if(a+1<=100000 && arr[a+1]==0) {
+				arr[a+1]=arr[a]+1;
+				que.add(a+1);
 			}
-			if(data[0]-1>=0 && vis[data[0]-1] == -1) {
-				que.add(new int[] {data[0]-1, data[1]+1});
-				vis[data[0]-1] = vis[data[0]]+1;
+			if(a*2 <= 100000 && arr[a*2]==0) {
+				arr[a*2] = arr[a]+1;
+				que.add(a*2);
 			}
-			if(data[0]*2<=100000 && vis[data[0]*2] == -1) {
-				que.add(new int[] {data[0]*2, data[1]+1});
-				vis[data[0]*2] = vis[data[0]] +1;
-			}
-				
-		
 			
 		}
-		System.out.println(ans);
-		
+		System.out.println(arr[m]-1);
 	}
 
 }
