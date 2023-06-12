@@ -1,4 +1,4 @@
-package class3;
+package ¿¬½À;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,16 +15,14 @@ public class A2579 {
 		}
 		
 		int[] dp = new int[n];
-		dp[0]= arr[0];
+		dp[0]=arr[0];
 		for(int i=1; i<n; i++) {
 			if(i==1) {
-				dp[i] = arr[i]+arr[i-1];
+				dp[1] = arr[0]+arr[1];
 			}else if(i==2) {
-				dp[i] = Math.max(arr[0]+arr[i], arr[i-1]+arr[i]);
-			}
-			else{
-				dp[i] = Math.max(dp[i-2], dp[i-3]+arr[i-1])+arr[i];
-				
+				dp[2] = Math.max(arr[0], arr[1])+arr[2];
+			}else {
+				dp[i] = Math.max(arr[i-1]+dp[i-3], dp[i-2])+arr[i];
 			}
 		}
 		System.out.println(dp[n-1]);

@@ -1,20 +1,21 @@
-package class3;
+package ¿¬½À;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 public class A2630 {
-	static int[][] map;
+	static int n;
+	static int[][] arr;
 	static int[] ans = new int[2];
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int n = Integer.parseInt(br.readLine());
+		n = Integer.parseInt(br.readLine());
 		
-		map = new int[n][n];
-		for(int i=0; i<n; i++) {
+		arr = new int[n][n];
+		for(int i = 0; i<n; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for(int j=0; j<n; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
+				arr[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 		
@@ -25,23 +26,19 @@ public class A2630 {
 	private static void func(int x, int y, int n) {
 		
 		if(check(x,y,n)) {
-			ans[map[x][y]]+=1;
+			ans[arr[x][y]] +=1;
 			return;
 		}
-		
 		int a = n/2;
-		
 		func(x,y,a);
-		func(x,y+a, a);
+		func(x,y+a,a);
 		func(x+a,y,a);
 		func(x+a,y+a,a);
-
 	}
-	private static boolean check(int x, int y, int a) {
-		int num = map[x][y];
-		for(int i=x; i<x+a; i++) {
-			for(int j=y; j<y+a; j++){
-				if(map[i][j] != num) {
+	private static boolean check(int x, int y, int n) {
+		for(int i=x; i<x+n; i++) {
+			for(int j=y; j<y+n; j++) {
+				if(arr[x][y] != arr[i][j]) {
 					return false;
 				}
 			}
