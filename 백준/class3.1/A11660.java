@@ -20,7 +20,6 @@ public class A11660 {
 			}
 		}
 		
-		System.out.println(Arrays.deepToString(dp));
 		for(int i=0; i<m; i++) {
 			int a = sc.nextInt();
 			int b = sc.nextInt();
