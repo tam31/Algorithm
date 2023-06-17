@@ -1,13 +1,14 @@
-package ì˜¤ë‹µ1;
+package ¿¬½À;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+
 public class A11724 {
-	static int n;
-	static int m;
 	static int[][] map;
 	static boolean[] vis;
+	static int n;
+	static int m;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -25,24 +26,25 @@ public class A11724 {
 			map[a][b] = 1;
 			map[b][a] = 1;
 		}
+		
 		int cnt = 0;
 		for(int i=1; i<=n; i++) {
 			if(!vis[i]) {
 				cnt +=1;
-				vis[i] = true;
-				dfs(i);
-				
+				func(i);
 			}
 		}
 		System.out.println(cnt);
-		
 	}
-	private static void dfs(int x) {
+	private static void func(int a) {
+		if(vis[a]) {
+			return;
+		}
 		
+		vis[a] = true;
 		for(int i=1; i<=n; i++) {
-			if(map[x][i]==1 && !vis[i]) {
-				vis[i] = true;
-				dfs(i);
+			if(map[a][i] == 1) {
+				func(i);
 			}
 		}
 	}
