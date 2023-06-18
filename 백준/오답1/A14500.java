@@ -1,4 +1,4 @@
-package ì˜¤ë‹µ1;
+package ¿¬½À;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,9 +8,9 @@ public class A14500 {
 	static int m;
 	static int[][] map;
 	static boolean[][] vis;
+	static int max = 0;
 	static int[] dx = {-1,0,1,0};
 	static int[] dy = {0,-1,0,1};
-	static int ans = 0;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -36,31 +36,33 @@ public class A14500 {
 				}
 			}
 		}
-		
-		System.out.println(ans);
+		System.out.println(max);
 	}
+	
 	private static void func(int x, int y, int sum, int cnt) {
 		if(cnt == 4) {
-			ans = Math.max(sum, ans);
+			max = Math.max(max, sum);
 			return;
 		}
 		
 		for(int i=0; i<4; i++) {
-			int nx = dx[i]+x;
-			int ny = dy[i]+y;
-			
+			int nx = x+dx[i];
+			int ny = y+dy[i];
 			if(nx>=0&&nx<n && ny>=0&&ny<m && !vis[nx][ny]) {
 				
-				if(cnt==2) {
-					vis[nx][ny]=true;
+				if(cnt == 2) {
+					vis[nx][ny] = true;
 					func(x,y,sum+map[nx][ny],cnt+1);
-					vis[nx][ny]=false;
+					vis[nx][ny] = false;
 				}
 				
 				vis[nx][ny] = true;
-				func(nx,ny,sum+map[nx][ny],cnt+1);
+				func(nx,ny, sum+map[nx][ny], cnt+1);
 				vis[nx][ny] = false;
+				
 			}
 		}
+		
+		
 	}
 }
