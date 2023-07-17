@@ -32,10 +32,8 @@ public class A수식최대화 {
 					}
 					
 				}
-				System.out.println(tmp);
 				
 			}
-			System.out.println(tmp);
 			ans = Math.max(ans, Math.abs(Long.parseLong(tmp.get(0))));
 		}
 		System.out.println(ans);
