@@ -11,71 +11,78 @@ public class A11780 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
 		int m = Integer.parseInt(br.readLine());
-		StringBuilder sb = new StringBuilder();
 		
-		int[][] map = new int[n+1][n+1];
-		int[][] vis = new int[n+1][n+1];
+		int[][] map = new int[n][n];
+		int[][] route = new int[n][n];
 		
-		for(int i=0; i<=n; i++) {
-			Arrays.fill(map[i], INF);
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				if(i!=j) {
+					map[i][j] = INF;
+					route[i][j] = INF;
+				}
+			}
 		}
+		
 		for(int i=0; i<m; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
 			int c = Integer.parseInt(st.nextToken());
 			
-			map[a][b] = Math.min(map[a][b], c);
-			vis[a][b] = b;
-		}
-		
-		for(int k=1; k<=n; k++) {
-			for(int i=1; i<=n; i++) {
-				for(int j=1; j<=n; j++) {
-					if(map[i][j] > map[i][k]+map[k][j]) {
-						map[i][j] = map[i][k]+map[k][j];
-						vis[i][j] = vis[i][k];
-					}	
-				}
+			if(map[a-1][b-1] > c ) {
+				map[a-1][b-1] = c;
+				route[a-1][b-1]=b;
 			}
-		}
-		
-		for(int i=1; i<=n; i++) {
-			for(int j=1; j<=n; j++) {
-				if(i==j || map[i][j] ==INF) {
-					map[i][j] = 0;
-					vis[i][j] = 0;
-				}
-				sb.append(map[i][j]+" ");
-			}
-			sb.append("\n");
-		}
-		for(int i=1; i<=n; i++) {
 			
-			for(int j=1; j<=n; j++) {
-				List<Integer> list = new ArrayList<>();
-				if(vis[i][j] !=0) {
-					list.add(i);
-					int a = vis[i][j];
-					list.add(a);
-					while(true) {
-												
-						
-						if(a==j) {
-							break;
-						}
-						a= vis[a][j];
-						list.add(a);
+		}
+		
+		for(int k=0; k<n; k++) {
+			for(int i=0; i<n; i++) {
+				for(int j=0; j<n; j++) {
+					if(map[i][j] > (map[i][k]+map[k][j])) {
+						map[i][j] = map[i][k]+map[k][j];
+						route[i][j] = route[i][k];
 					}
 				}
-				sb.append(list.size()+" ");
-				for(int k=0; k<list.size(); k++) {
-					sb.append(list.get(k)+" ");
-				}
-				sb.append("\n");
 			}
 		}
-		System.out.println(sb);
+		
+		
+		
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				if(map[i][j]==INF) {
+					System.out.print(0+" ");
+				}else {
+					System.out.print(map[i][j]+" ");
+				}
+				
+			}
+			System.out.println();
+		}
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				if(route[i][j] == INF ||route[i][j] == 0) {
+					System.out.println(0);
+				}else {
+					int cnt = 1;
+					int now = route[i][j];
+					List<Integer> list = new ArrayList<>();
+					list.add(i+1);
+					while(now != 0) {
+						list.add(now);
+						cnt +=1;
+						now = route[now-1][j];
+					}
+					System.out.print(cnt+" ");
+					for(int k: list) {
+						System.out.print(k+" ");
+					}
+					System.out.println();
+				}
+			}
+		}
 	}
 
 }
